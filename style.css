@@ -1,0 +1,206 @@
+body {
+  margin: 0;
+  background: black;
+  font-family: sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.full-screen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title screen van animation: smooth continuous loop and tunable vertical placement */
+#vanSprite {
+  position: absolute;
+  /* default bottom if JS doesn't set the CSS variable */
+  bottom: var(--van-bottom, 22%);
+  left: 50%;
+  width: 40vw;
+  margin-left: -20vw; /* offset for 50% left positioning */
+  will-change: transform;
+  animation: vanDriveToCenter 4s ease-in-out forwards, vanIdle 3s ease-in-out 4s infinite;
+}
+
+/* Van drives from left to center, then stops */
+@keyframes vanDriveToCenter {
+  0%   { transform: translateX(-80vw); }
+  100% { transform: translateX(0); }
+}
+
+/* Subtle idle motion: small rocking and bobbing while parked */
+@keyframes vanIdle {
+  0%   { transform: translateX(0) translateY(0) rotateZ(0deg); }
+  25%  { transform: translateX(0) translateY(-2px) rotateZ(-0.5deg); }
+  50%  { transform: translateX(0) translateY(1px) rotateZ(0.5deg); }
+  75%  { transform: translateX(0) translateY(-1px) rotateZ(-0.3deg); }
+  100% { transform: translateX(0) translateY(0) rotateZ(0deg); }
+}
+
+#startButton,
+#charConfirm,
+#mapBackToChars,
+#prevPhoto,
+#nextPhoto,
+#backToMap {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+/* Make the Press Start button responsive and always cover START GAME text */
+#startButton {
+  min-width: clamp(7in, 85vw, 95vw); /* wider to ensure full coverage */
+  max-width: 98vw;
+  padding: clamp(1.5rem, 6vh, 2.5rem) clamp(2rem, 4vw, 3rem); /* increased padding for full coverage */
+  min-height: clamp(4rem, 12vh, 7rem); /* taller to cover all letters */
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  bottom: clamp(2%, 8vh, 6%); /* adjusted lower to center over START GAME */
+  background: transparent;
+  border: none;
+  color: transparent; /* hide any text */
+  box-shadow: none;
+  cursor: pointer;
+  outline: none; /* remove focus outline so the button is fully invisible */
+}
+
+/* Visible "CLICK HERE" reminder button above the van */
+.click-here-btn {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: clamp(0.8rem, 2vh, 1.2rem) clamp(1.5rem, 3vw, 2.5rem);
+  min-height: clamp(2.5rem, 6vh, 4rem);
+  min-width: clamp(5in, 60vw, 80vw);
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: bold;
+  background: white;
+  color: #00aa00; /* bright green text */
+  border: 3px solid #00aa00;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.click-here-btn:hover {
+  background: #f0f0f0;
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 170, 0, 0.7);
+}
+
+
+#characterButtons {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  align-items: flex-end;
+}
+
+/* Character slot: fixed responsive box so all characters appear the same size */
+/* Make most character slots larger, except character 5 which stays smaller */
+#characterButtons button {
+  width: clamp(110px, 18vw, 200px);
+  height: clamp(120px, 20vw, 220px);
+  padding: 0;
+  border: 3px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Keep character 5 smaller */
+#characterButtons button[data-char="5"] {
+  width: clamp(60px, 9vw, 100px);
+  height: clamp(70px, 10vw, 110px);
+}
+
+/* Make character 4 a bit larger than the default slots */
+#characterButtons button[data-char="4"] {
+  width: clamp(140px, 22vw, 260px);
+  height: clamp(150px, 24vw, 280px);
+}
+
+/* Make the <img> fill the slot and keep its aspect ratio (no stretching)
+   — `object-fit: contain` letterboxes if necessary so characters are uniformly sized. */
+#characterButtons img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#characterButtons button.selected {
+  border-color: yellow;
+}
+
+#mapWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#mapImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#mapBackToChars {
+  bottom: 2%;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.map-node {
+  position: absolute;
+  width: 4vw;
+  height: 4vw;
+  background: rgba(255, 255, 255, 0);
+  border: none;
+}
+
+#slideshowScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: black;
+}
+
+#slideshowImage {
+  max-width: 90vw;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+#slideshowControls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}

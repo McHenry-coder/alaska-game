@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alaska Adventure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Title screen -->
+  <div id="titleScreen" class="screen">
+    <img src="img/title2.png" alt="Title screen" class="full-screen-image">
+    <img src="img/van2.png" alt="Van" id="vanSprite">
+    <button id="startButton">Press Start</button>
+  </div>
+
+  <!-- Title music (uses `audio/bit_battle.ogg`) -->
+  <audio id="titleMusic" src="audio/bit_battle.ogg" loop autoplay playsinline preload="auto"></audio>
+
+  <!-- Character select music -->
+  <audio id="characterMusic" src="audio/showcase_track.ogg" loop preload="auto"></audio>
+
+  <!-- Character select -->
+  <div id="characterScreen" class="screen hidden">
+    <img src="img/character-select1.2.png" alt="Character select" class="full-screen-image">
+    <div id="characterButtons">
+      <button data-char="1"><img src="img/char1.2.png" alt="Character 1"></button>
+      <button data-char="2"><img src="img/char2.2.PNG" alt="Character 2"></button>
+      <button data-char="3"><img src="img/char3.2.PNG" alt="Character 3"></button>
+      <button data-char="4"><img src="img/char4.2.PNG" alt="Character 4"></button>
+      <button data-char="5"><img src="img/char5.2.PNG"></button>
+    </div>
+    <button id="charConfirm">Start Adventure</button>
+  </div>
+
+  <!-- Map -->
+  <div id="mapScreen" class="screen hidden">
+    <div id="mapWrapper">
+      <img src="img/map.png" alt="Alaska map" id="mapImage">
+      <button class="map-node" data-location="anchorage" style="top: 40%; left: 30%;"></button>
+      <button class="map-node" data-location="homer" style="top: 70%; left: 25%;"></button>
+      <button class="map-node" data-location="seward" style="top: 65%; left: 40%;"></button>
+      <button class="map-node" data-location="whittier" style="top: 50%; left: 50%;"></button>
+      <button class="map-node" data-location="valdez" style="top: 55%; left: 55%;"></button>
+    </div>
+    <button id="mapBackToChars">Change Character</button>
+  </div>
+
+  <!-- Slideshow -->
+  <div id="slideshowScreen" class="screen hidden">
+    <img id="slideshowImage" src="" alt="Trip photo">
+    <div id="slideshowControls">
+      <button id="prevPhoto">Prev</button>
+      <button id="nextPhoto">Next</button>
+      <button id="backToMap">Back to Map</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
